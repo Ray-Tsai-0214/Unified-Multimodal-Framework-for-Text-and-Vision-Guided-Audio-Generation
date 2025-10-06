@@ -1,4 +1,4 @@
-# 🎵 Unified Multimodal Framework for Text and Vision Guided Audio Generation
+# Unified Multimodal Framework for Text and Vision Guided Audio Generation
 
 > **A cutting-edge research project extending Make-An-Audio with ImageBind integration for multimodal audio synthesis**
 
@@ -6,15 +6,15 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 
-## 📝 Overview
+## Overview
 
 This project presents a novel framework that extends the Make-An-Audio system to support multimodal conditioning by unifying text and image representations for audio generation. While existing text-to-audio generation systems have achieved remarkable progress, they are limited by the inherent ambiguity of text-only conditioning. Visual information provides complementary contextual cues that can disambiguate and enrich the generation process.
 
-### 🎯 Key Innovation
+### Key Innovation
 
 Our approach leverages **ImageBind's unified multimodal embedding space** to enable joint text-image guided audio generation, addressing the fundamental limitation of text-only audio synthesis systems.
 
-## 🏗️ Architecture
+## Architecture
 
 ### Core Components
 
@@ -23,7 +23,7 @@ Our approach leverages **ImageBind's unified multimodal embedding space** to ena
 3. **Automated Data Pipeline**: n8n workflow for multimodal dataset creation
 4. **Dual Experimental Design**: Comparative analysis of integration strategies
 
-### 🔬 Experimental Approaches
+### Experimental Approaches
 
 #### Experiment A: Direct Replacement Strategy
 - **Approach**: Direct substitution of CLAP with ImageBind-based multimodal encoder
@@ -35,14 +35,14 @@ Our approach leverages **ImageBind's unified multimodal embedding space** to ena
 - **Architecture**: ImageBind Encoder → Fusion Module → Token Sequence → CLAP Supervision
 - **Advantage**: Stable convergence through existing representation space alignment
 
-## 🚀 Key Features
+## Key Features
 
-- **🔄 Multimodal Conditioning**: Simultaneous text and image input processing
-- **🤖 Automated Data Generation**: Intelligent n8n workflow for dataset expansion
-- **📊 Comprehensive Analysis**: Detailed experimental comparison and failure analysis
-- **🎨 Creative Applications**: Film production, gaming, VR, and accessibility tools
+- **Multimodal Conditioning**: Simultaneous text and image input processing
+- **Automated Data Generation**: Intelligent n8n workflow for dataset expansion
+- **Comprehensive Analysis**: Detailed experimental comparison and failure analysis
+- **Creative Applications**: Film production, gaming, VR, and accessibility tools
 
-## 📊 Results & Insights
+## Results & Insights
 
 ### Performance Comparison
 
@@ -62,7 +62,7 @@ Our approach leverages **ImageBind's unified multimodal embedding space** to ena
 3. **Simple averaging fusion** performs better than complex mechanisms with limited data
 4. **CLAP supervision** enables stable learning through established representation spaces
 
-## 🛠️ Technical Stack
+## Technical Stack
 
 - **Deep Learning**: PyTorch, Transformers (Hugging Face)
 - **Models**: ImageBind, Make-An-Audio, CLAP, BigVGAN
@@ -71,25 +71,25 @@ Our approach leverages **ImageBind's unified multimodal embedding space** to ena
 - **Image Generation**: FLUX.1-schnell
 - **Evaluation**: FAD, IS, CLAP Score, Cosine Similarity
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 multimodal-audio-generation/
-├── 📂 Exp_A/                          # Direct Replacement Experiment
-│   ├── 📂 ImageBind/                  # ImageBind integration
-│   ├── 📂 Make-An-Audio/              # Base audio generation framework
-│   ├── 📂 ldm/                       # Latent diffusion models
-│   ├── 📂 configs/                   # Training configurations
-│   ├── 📂 scripts/                   # Inference and evaluation scripts
-│   └── 📂 processed/                 # Processed audio data
-├── 📂 Exp_B/                          # CLAP Alignment Experiment  
-│   └── 📂 Adapter/                   # Learnable transformation modules
-├── 📂 n8n_workflow/                   # Automated data generation
-├── 📄 Unified_Multimodal_Framework_for_Text_and_Vision_Guided_Audio_Generation.pdf
-└── 📄 README.md
+├── Exp_A/                          # Direct Replacement Experiment
+│   ├── ImageBind/                  # ImageBind integration
+│   ├── Make-An-Audio/              # Base audio generation framework
+│   ├── ldm/                       # Latent diffusion models
+│   ├── configs/                   # Training configurations
+│   ├── scripts/                   # Inference and evaluation scripts
+│   └── processed/                 # Processed audio data
+├── Exp_B/                          # CLAP Alignment Experiment  
+│   └── Adapter/                   # Learnable transformation modules
+├── n8n_workflow/                   # Automated data generation
+├── Unified_Multimodal_Framework_for_Text_and_Vision_Guided_Audio_Generation.pdf
+└── README.md
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -130,7 +130,7 @@ Download the following checkpoints and place them in `./useful_ckpts/`:
 - `BigVGAN vocoder` - Neural vocoder
 - `CLAP_weights_2022.pth` - CLAP encoder weights
 
-### 🎯 Usage
+### Usage
 
 #### Generate Embeddings
 ```bash
@@ -156,63 +156,63 @@ python gen_wavs_by_tsv.py \
     --ddim_steps 100
 ```
 
-## 🎨 Applications
+## Applications
 
-### 🎬 Film & Media Production
+### Film & Media Production
 - **Context-aware sound design**: Generate audio matching specific visual scenes
 - **Efficient post-production**: Reduce manual sound design time from 4-8 hours to 1-2 hours
 - **Creative exploration**: Rapid prototyping of soundscapes
 
-### 🎮 Interactive Gaming & VR
+### Interactive Gaming & VR
 - **Dynamic audio generation**: Real-time audio synthesis for procedural environments
 - **Contextual soundscapes**: Audio that adapts to visual environments
 - **Resource optimization**: Reduce large audio asset libraries
 
-### ♿ Assistive Technology
+### Assistive Technology
 - **Enhanced accessibility**: Generate contextual ambient sounds for visually impaired users
 - **Audio descriptions**: Complement narrative with appropriate environmental audio
 - **Cultural immersion**: Create authentic soundscapes for educational content
 
-## 📈 Automated Data Generation Pipeline
+## Automated Data Generation Pipeline
 
 Our innovative **n8n workflow** automatically creates complementary multimodal training pairs:
 
 ### Pipeline Stages
 
-1. **🧠 Semantic Decomposition**: GPT-4.1 splits audio captions into visual and textual components
-2. **🖼️ Image Generation**: FLUX.1-schnell creates corresponding visual context
-3. **✅ Quality Control**: Ensures zero overlap between components
-4. **💾 Automated Storage**: Systematic organization in Google Drive
+1. **Semantic Decomposition**: GPT-4.1 splits audio captions into visual and textual components
+2. **Image Generation**: FLUX.1-schnell creates corresponding visual context
+3. **Quality Control**: Ensures zero overlap between components
+4. **Automated Storage**: Systematic organization in Google Drive
 
 ### Benefits
-- **📈 Scalability**: Transform hundreds into thousands of training pairs
-- **⏰ Efficiency**: 24/7 automated operation
-- **💰 Cost-effective**: Reduce manual annotation costs significantly
-- **🎯 Consistency**: Maintain systematic quality standards
+- **Scalability**: Transform hundreds into thousands of training pairs
+- **Efficiency**: 24/7 automated operation
+- **Cost-effective**: Reduce manual annotation costs significantly
+- **Consistency**: Maintain systematic quality standards
 
-## 📊 Evaluation Metrics
+## Evaluation Metrics
 
-- **🎵 Audio Quality**: FAD (Fréchet Audio Distance), IS (Inception Score)
-- **🔗 Multimodal Alignment**: CLAP Score, Cosine Similarity
-- **📈 Training Dynamics**: Loss convergence, validation performance
-- **👥 Human Evaluation**: Context appropriateness, perceived quality
+- **Audio Quality**: FAD (Fréchet Audio Distance), IS (Inception Score)
+- **Multimodal Alignment**: CLAP Score, Cosine Similarity
+- **Training Dynamics**: Loss convergence, validation performance
+- **Human Evaluation**: Context appropriateness, perceived quality
 
-## 🔧 Future Work
+## Future Work
 
-### 🎯 Research Directions
+### Research Directions
 
-1. **📊 Scalable Training**: Progressive learning strategies for larger datasets
-2. **📏 Evaluation Framework**: Standardized multimodal audio generation metrics
-3. **🏗️ Architecture Innovation**: Hierarchical fusion mechanisms
-4. **🎬 Real-world Deployment**: Professional tool integration studies
+1. **Scalable Training**: Progressive learning strategies for larger datasets
+2. **Evaluation Framework**: Standardized multimodal audio generation metrics
+3. **Architecture Innovation**: Hierarchical fusion mechanisms
+4. **Real-world Deployment**: Professional tool integration studies
 
-### 🚀 Technical Improvements
+### Technical Improvements
 
-- **🎥 Temporal Conditioning**: Extend to video-guided audio generation
-- **⚖️ Adaptive Weighting**: Dynamic modal influence adjustment
-- **🌍 Cross-modal Understanding**: Deeper semantic alignment analysis
+- **Temporal Conditioning**: Extend to video-guided audio generation
+- **Adaptive Weighting**: Dynamic modal influence adjustment
+- **Cross-modal Understanding**: Deeper semantic alignment analysis
 
-## 📚 Academic Paper
+## Academic Paper
 
 **Title**: "Unified Multimodal Framework for Text and Vision Guided Audio Generation: Extending Make-An-Audio with ImageBind Integration"
 
@@ -220,9 +220,9 @@ Our innovative **n8n workflow** automatically creates complementary multimodal t
 
 **Abstract**: This research extends Make-An-Audio to support multimodal conditioning through ImageBind integration, enabling complementary text-image guided audio generation and addressing the inherent limitations of text-only conditioning systems.
 
-[📄 Read Full Paper](./Unified_Multimodal_Framework_for_Text_and_Vision_Guided_Audio_Generation.pdf)
+[Read Full Paper](./Unified_Multimodal_Framework_for_Text_and_Vision_Guided_Audio_Generation.pdf)
 
-## 🤝 Acknowledgments
+## Acknowledgments
 
 This implementation builds upon several outstanding open-source projects:
 - [Make-An-Audio](https://github.com/Text-to-Audio/Make-An-Audio) - Base audio generation framework
@@ -230,15 +230,15 @@ This implementation builds upon several outstanding open-source projects:
 - [CLAP](https://github.com/LAION-AI/CLAP) - Audio-text alignment
 - [Stable Diffusion](https://github.com/CompVis/stable-diffusion) - Latent diffusion models
 
-## ⚖️ License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 This technology is intended for research and creative applications only. Any organization or individual is prohibited from using this technology to generate audio content without proper consent, including but not limited to speeches of public figures, celebrities, or copyrighted material.
 
-## 🏆 Citation
+## Citation
 
 If you find this work useful in your research, please consider citing:
 
@@ -255,8 +255,8 @@ If you find this work useful in your research, please consider citing:
 
 <div align="center">
 
-**🎵 Bridging Vision, Language, and Sound through AI 🎵**
+**Bridging Vision, Language, and Sound through AI**
 
-*Developed with ❤️ at National Yang Ming Chiao Tung University*
+*Developed at National Yang Ming Chiao Tung University*
 
 </div>

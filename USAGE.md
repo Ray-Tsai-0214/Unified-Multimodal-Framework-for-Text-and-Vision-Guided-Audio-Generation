@@ -1,6 +1,6 @@
-# 📖 Usage Guide
+# Usage Guide
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - NVIDIA GPU with 16GB+ VRAM (RTX 4090 recommended)
@@ -8,7 +8,7 @@
 - CUDA 12.1+
 - 50GB+ free disk space
 
-## 📋 Step-by-Step Setup
+## Step-by-Step Setup
 
 ### 1. Environment Preparation
 
@@ -51,7 +51,7 @@ Download the following models:
   - `CLAP_weights_2022.pth` → `./useful_ckpts/CLAP/`
   - `config.yml` → `./useful_ckpts/CLAP/`
 
-## 🎯 Usage Examples
+## Usage Examples
 
 ### Generate Multimodal Embeddings
 
@@ -109,7 +109,7 @@ python gen_wav.py \
     --save_name "bird_forest"
 ```
 
-## 🔧 Advanced Usage
+## Advanced Usage
 
 ### Custom Dataset Preparation
 
@@ -160,7 +160,7 @@ python scripts/audio2audio.py \
     --outdir audio2audio_samples
 ```
 
-## 📊 Evaluation
+## Evaluation
 
 ### Audio Quality Metrics
 
@@ -181,7 +181,7 @@ python wav_evaluation/cal_clap_score.py \
     --tsv_path generated_audio/result.tsv
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -230,7 +230,7 @@ torch.backends.cuda.matmul.allow_tf32 = True
 export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512
 ```
 
-## 📁 File Organization
+## File Organization
 
 ### Input Data Structure
 ```
@@ -255,7 +255,7 @@ generated_audio/
 └── result.tsv
 ```
 
-## 🎛️ Configuration Options
+## Configuration Options
 
 ### Training Parameters
 
@@ -289,7 +289,7 @@ generation:
 | `duration` | Audio length (seconds) | 5-10 |
 | `temperature` | Sampling randomness | 0.8-1.2 |
 
-## 📞 Support
+## Support
 
 For technical issues:
 1. Check the troubleshooting section above

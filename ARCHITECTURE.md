@@ -1,4 +1,4 @@
-# 🏗️ Architecture Documentation
+# Architecture Documentation
 
 ## System Overview
 
@@ -8,7 +8,7 @@ The Unified Multimodal Framework integrates three key components to enable text 
 2. **Make-An-Audio Foundation**: Base text-to-audio generation
 3. **Automated Data Pipeline**: Multimodal dataset creation
 
-## 🔬 Experimental Design
+## Experimental Design
 
 ### Experiment A: Direct Replacement Strategy
 
@@ -52,7 +52,7 @@ graph TD
 - **CLAP Supervision**: Uses CLAP-encoded features as ground truth
 - **Combined Loss Function**: MSE + Cosine Similarity
 
-## 🤖 Automated Data Generation Pipeline
+## Automated Data Generation Pipeline
 
 ```mermaid
 graph LR
@@ -72,7 +72,7 @@ graph LR
 3. **Quality Control**: Ensure zero overlap between components
 4. **Automated Storage**: Systematic organization with consistent naming
 
-## 📊 Model Architecture Details
+## Model Architecture Details
 
 ### ImageBind Integration
 
@@ -100,7 +100,7 @@ def compute_alignment_loss(predicted_tokens, clap_features):
     return total_loss
 ```
 
-## 🎯 Training Configuration
+## Training Configuration
 
 ### Experiment A Configuration
 
@@ -132,7 +132,7 @@ training:
   batch_size: 4
 ```
 
-## 🔧 Key Design Decisions
+## Key Design Decisions
 
 ### 1. Fusion Strategy Selection
 - **Simple Averaging**: Outperformed weighted and attention-based fusion
@@ -146,7 +146,7 @@ training:
 - **Problem**: Direct replacement caused unstable convergence
 - **Solution**: Incremental alignment approach with existing CLAP space
 
-## 📈 Performance Analysis
+## Performance Analysis
 
 ### Convergence Patterns
 
@@ -163,7 +163,7 @@ training:
 - **Batch Size**: 4 (memory constrained)
 - **Model Size**: ~2.3B parameters (ImageBind + U-Net)
 
-## 🔍 Architectural Insights
+## Architectural Insights
 
 ### Success Factors (Experiment B)
 1. **Compatibility Preservation**: Maintained CLAP representation space
@@ -175,7 +175,7 @@ training:
 2. **Complex Optimization**: Simultaneous feature mapping and audio generation
 3. **Insufficient Data**: Limited samples for complex cross-modal learning
 
-## 🚀 Implementation Notes
+## Implementation Notes
 
 ### Environment Setup
 - **ImageBind**: Python 3.10, PyTorch 2.0+
@@ -191,7 +191,7 @@ librosa>=0.9.0
 soundfile>=0.10.0
 ```
 
-## 📚 References
+## References
 
 - **ImageBind**: "ImageBind: One Embedding Space To Bind Them All" (Meta, 2023)
 - **Make-An-Audio**: "Make-an-audio: Text-to-audio generation with prompt-enhanced diffusion models" (ICML 2023)
