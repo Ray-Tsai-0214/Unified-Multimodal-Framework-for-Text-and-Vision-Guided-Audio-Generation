@@ -1,0 +1,2 @@
+name	image_path	audio_path	caption_path	embedding_path	mel_path
+_Fj6Jwz6XDs_80	data/audiocaps_raw_audio/_Fj6Jwz6XDs_80.png	data/audiocaps_raw_audio/_Fj6Jwz6XDs_80.wav	data/audiocaps_raw_audio_Fj6Jwz6XDs_80.txt	data/embeddings/_Fj6Jwz6XDs_80.pt	processed/melpad16000\audiocaps_raw_audio\_Fj6Jwz6XDs_80.npy

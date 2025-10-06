@@ -1,0 +1,590 @@
+{
+  "name": "MLSP_final_data_gen",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2080,
+        200
+      ],
+      "id": "0b1cfa8a-94a1-4b1b-a3ff-5f1effc8b8d3",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [],
+          "string": [
+            {
+              "value1": "={{ $json.message ? $json.message.content.visual_text : $json.visual_text }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "name": "Route Processing",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        340,
+        280
+      ],
+      "id": "3ec02c9f-d3f8-4889-a369-e252bf26f415"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "youtube_id",
+              "value": "={{ $json.youtube_id }}"
+            },
+            {
+              "name": "start_time",
+              "value": "={{ $json.start_time }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "準備資料2",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -1000,
+        200
+      ],
+      "typeVersion": 2,
+      "id": "f0ebe385-3a3d-44ec-88f1-2ba779af702a"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-nano-2025-04-14",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-NANO-2025-04-14"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Your task is to split each  {{ $json.caption }} into two completely non-overlapping components:\n\n1. Visual Part (visual_text): ONLY include the main physical object or scene that can be depicted in an image. This should be extremely concise (3-7 words) and focus only on tangible visual elements.\n\n2. Text Part (caption_text): ONLY include actions, sounds, emotions, and behaviors NOT mentioned in the visual part. This should be extremely concise (3-7 words).\n\nCRITICAL RULES:\n- The two parts must be MUTUALLY EXCLUSIVE with ZERO overlap\n- Visual part = ONLY physical objects/scenes (nouns)\n- Text part = ONLY actions/sounds/behaviors (verbs, adverbs, sounds)\n- Never repeat any word or concept between the two parts\n- Split the content like complementary puzzle pieces\n\nEXACT FORMAT:\n{\n  \"youtube_id\": \"{{$json.youtube_id}}\",\n  \"start_time\": \"{{ $json.start_time }}\",\n  \"visual_text\": \"[ONLY physical objects/scene]\", \n  \"caption_text\": \"[ONLY actions/sounds/behaviors]\"\n}\n",
+              "role": "system"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -620,
+        200
+      ],
+      "id": "2bd4442f-b716-4164-81bb-d025e88ffddb",
+      "name": "OpenAI2",
+      "credentials": {
+        "openAiApi": {
+          "id": "XTo8Irs9RO1dGbYf",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fileSelector": "C:/Users/NTHUILST/Ray/MLSP/MLSP_final_project/train_new.csv",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -1800,
+        200
+      ],
+      "id": "04efa4fc-f6ff-4114-b0ef-db56760a4963",
+      "name": "Read CSV File1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "options": {
+          "headerRow": true,
+          "includeEmptyCells": false
+        }
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -1620,
+        200
+      ],
+      "id": "e7bfedf7-b2ca-4a8f-abe4-e3492554c109",
+      "name": "Extract from File2",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Route Processing').item.json.youtube_id }}_{{ $('Route Processing').item.json.start_time }}.png",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1SgRkK7oSLdRaTmGjlTvv_KXqhXSF_rae",
+          "mode": "list",
+          "cachedResultName": "MLSP_train_data",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1SgRkK7oSLdRaTmGjlTvv_KXqhXSF_rae"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        760,
+        280
+      ],
+      "id": "cfb9d154-f0c5-464b-b5bc-099f1b9db82b",
+      "name": "Upload Image to Drive1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "d8GUzMdpMl2gMjqR",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{ $json.youtube_id }}_{{ $json.start_time }}.txt",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1SgRkK7oSLdRaTmGjlTvv_KXqhXSF_rae",
+          "mode": "list",
+          "cachedResultName": "MLSP_train_data",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1SgRkK7oSLdRaTmGjlTvv_KXqhXSF_rae"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        540,
+        0
+      ],
+      "id": "56634157-3d54-4d6d-b59d-14d9fc40f7f7",
+      "name": "Upload Caption to Drive1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "d8GUzMdpMl2gMjqR",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.caption !== undefined && $json.caption.length > 0 }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Validate Data1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -1240,
+        200
+      ],
+      "id": "5079a0c1-745f-4193-a6c2-ad1b2cbdbbea"
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {
+          "reset": false
+        }
+      },
+      "name": "Process In Batches1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        -800,
+        200
+      ],
+      "typeVersion": 2,
+      "id": "7412aa1c-faf8-4275-9c0e-09a019f2560a"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 從OpenAI回傳解析數據\nconst response = $json.message.content;\n\n// 提取需要的字段\nreturn [\n  {\n    json: {\n      youtube_id: response.youtube_id,\n      start_time: response.start_time,\n      caption_text: response.caption_text,\n      visual_text: response.visual_text,\n      data: Buffer.from(response.caption_text, 'utf8').toString('base64')\n    },\n    binary: {\n      data: {\n        data: Buffer.from(response.caption_text, 'utf8').toString('base64'),\n        mimeType: 'text/plain',\n        fileName: `${response.youtube_id}_${response.start_time}_caption.txt`\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        160,
+        200
+      ],
+      "id": "aae41dbf-d2e0-4059-8d00-090db99d18bb",
+      "name": "Process OpenAI Result1"
+    },
+    {
+      "parameters": {
+        "amount": 0.5
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        340,
+        0
+      ],
+      "id": "5d97b7ed-7ee0-4a9a-80cb-58f90a49b859",
+      "name": "Wait Between Calls1",
+      "webhookId": "e2096269-a49f-4760-9f37-33ffee217549"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "image/png"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "inputs",
+              "value": "={{ $json.visual_text }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        540,
+        280
+      ],
+      "id": "37a98cde-4614-4800-81ad-1841acf67ba1",
+      "name": "Generate Image1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "8GwhYUHhujbvXmG4",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 0.5
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        740,
+        0
+      ],
+      "id": "a676ec68-c95f-4608-b854-565ea76b7a0c",
+      "name": "Wait",
+      "webhookId": "e2096269-a49f-4760-9f37-33ffee217549"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 創建一個Map來存儲所有項目，使用youtube_id + start_time作為鍵\nconst uniqueItems = new Map();\n\n// 遍歷所有項目\nfor (const item of $input.all()) {\n  // 創建唯一鍵\n  const uniqueKey = `${item.json.youtube_id}_${item.json.start_time}`;\n  \n  // 如果此鍵在Map中尚不存在，則添加此項目\n  if (!uniqueItems.has(uniqueKey)) {\n    uniqueItems.set(uniqueKey, item);\n  }\n}\n\n// 將Map中的值轉換為數組並返回\nreturn Array.from(uniqueItems.values());"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1420,
+        200
+      ],
+      "id": "23054f18-ee3a-4f83-8bfb-f3a6a50bb762",
+      "name": "Remove Duplicates1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ab89bf03-5aa3-496e-b534-dcd309e85f77",
+              "leftValue": "={{ $json.message.content.youtube_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "b58c6ba9-798a-4f3c-83a6-fc1fefdba6a3",
+              "leftValue": "={{ $json.message.content.start_time }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "cbb8db74-71a3-469c-ad5f-82b2068fe483",
+              "leftValue": "={{ $json.message.content.visual_text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "d3c21991-d8da-497d-9fa5-c608e9da07cd",
+              "leftValue": "={{ $json.message.content.caption_text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -260,
+        200
+      ],
+      "id": "7393ab92-2700-4981-a0f7-fcabf5c8f1b8",
+      "name": "If"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read CSV File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Processing": {
+      "main": [
+        [
+          {
+            "node": "Generate Image1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "準備資料2": {
+      "main": [
+        [
+          {
+            "node": "Process In Batches1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI2": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read CSV File1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File2": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Image to Drive1": {
+      "main": [
+        [
+          {
+            "node": "Process In Batches1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Caption to Drive1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Data1": {
+      "main": [
+        [
+          {
+            "node": "準備資料2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process In Batches1": {
+      "main": [
+        [
+          {
+            "node": "OpenAI2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process OpenAI Result1": {
+      "main": [
+        [
+          {
+            "node": "Wait Between Calls1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Route Processing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait Between Calls1": {
+      "main": [
+        [
+          {
+            "node": "Upload Caption to Drive1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Image1": {
+      "main": [
+        [
+          {
+            "node": "Upload Image to Drive1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates1": {
+      "main": [
+        [
+          {
+            "node": "Validate Data1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Process OpenAI Result1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Process In Batches1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d8fc519a-4c18-466a-bf88-0cdba1e637dd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6d19c1bda1153e228aa9ee2614e3daf4e2cb7a4e7b61da21d6498af71502732b"
+  },
+  "id": "l93vpqc28utzJcde",
+  "tags": []
+}
